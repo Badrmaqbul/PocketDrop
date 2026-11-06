@@ -61,7 +61,7 @@ Write-Host '3/4  Creating the installer (this takes a minute)...'
 Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue
 & jpackage `
     --type exe `
-    --name PocketDrop `
+    --name 'PocketDrop Alpha' `
     --app-version $version `
     --vendor 'Dev.Badr' `
     --description 'Saves what you send to your private Telegram bot on this computer.' `
@@ -79,7 +79,7 @@ if ($LASTEXITCODE -ne 0) { throw 'jpackage failed.' }
 
 # The installer itself is versioned 0.1.0 (numeric only); "-alpha" is part of the
 # public file name and the GitHub tag, not of the internal Windows version.
-Rename-Item "dist\PocketDrop-$version.exe" "$releaseName.exe"
+Get-ChildItem "dist\PocketDrop*-$version.exe" | Rename-Item -NewName "$releaseName.exe"
 
 Write-Host '4/4  Done.'
 Get-ChildItem dist | ForEach-Object { Write-Host ("     " + $_.FullName) }
