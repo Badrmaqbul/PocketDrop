@@ -1,0 +1,31 @@
+# --- Build output ---
+target/
+dist/
+
+# --- IDEs ---
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# --- OS ---
+Thumbs.db
+.DS_Store
+
+# --- Logs and local runtime data (never commit tokens or saved files) ---
+*.log
+data/
+
+# --- Certificates and private keys (never commit these) ---
+*.cer
+*.pfx
+*.p12
+*.key
+
+# --- AI assistant local files (not part of the project) ---
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+.mcp.json

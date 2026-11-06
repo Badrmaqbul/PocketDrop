@@ -1,0 +1,45 @@
+# Builds the Windows installer automatically on every v* tag (and on demand).
+# The resulting .exe is uploaded as a build artifact — attach it to the GitHub Release.
+#
+# NOTE: this runs scripts\build-installer.ps1 as-is. If the script ever gains
+# machine-specific paths, keep it CI-friendly so this workflow keeps working.
+
+name: Build Windows installer
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          # A recent JDK is required: its jpackage supports WiX 5/6.
+          # The app itself still compiles with --release 21 (set in pom.xml).
+          java-version: 24
+          cache: maven
+
+      - name: Install WiX Toolset 6 (with the extensions jpackage needs)
+        run: |
+          dotnet tool install --global wix --version 6.0.0
+          wix extension add -g WixToolset.UI.wixext/6.0.0
+          wix extension add -g WixToolset.Util.wixext/6.0.0
+
+      - name: Build the installer
+        shell: pwsh
+        run: ./scripts/build-installer.ps1
+
+      - name: Upload the installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PocketDrop-setup
+          path: dist/*.exe
+          if-no-files-found: error
