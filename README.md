@@ -74,7 +74,7 @@ The first-run wizard — from install to a linked bot in about two minutes:
 
 ## Installation
 
-1. Download `PocketDrop-<version>.exe` from the
+1. Download `PocketDrop-<version>-alpha.exe` from the
    [**Releases**](../../releases) page.
 2. Run it. The installer is **per-user** — it needs no administrator rights and installs
    no extra dependencies (the Java runtime is bundled inside).
@@ -177,7 +177,7 @@ java -cp target\classes dev.badr.pocketdrop.core.DpapiCheck
 
 ## Building the Windows installer
 
-`scripts\build-installer.ps1` produces `dist\PocketDrop-<version>.exe` — a regular
+`scripts\build-installer.ps1` produces `dist\PocketDrop-<version>-alpha.exe` — a regular
 Windows installer that bundles the application **and** a private Java runtime, so the
 people who install PocketDrop need nothing else.
 
@@ -221,7 +221,7 @@ every `v*` tag automatically; the `.exe` is attached as a build artifact.
 PocketDrop/
 ├── pom.xml                    # Maven build — JavaFX is the only dependency
 ├── assets/                    # Application icon
-├── docs/screenshots/          # UI screenshots (ar/ and en/)
+├── docs/screenshots/          # UI screenshots (en/)
 ├── scripts/
 │   ├── build-installer.ps1    # jar → JavaFX modules → jpackage → setup.exe
 │   ├── sign-installer.ps1     # optional local code signing
